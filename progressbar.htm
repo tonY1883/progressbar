@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="description" content="Just a progressbar.">
+		<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+		<!-- CSS Style Sheet Here -->
+		<style>
+			html {
+				overflow: hidden;
+			}
+
+			body {
+				background-color: black;
+			}
+
+			footer {
+				position: fixed;
+				font-family: 'VT323', monospace;
+				font-size: 1.2em;
+				bottom: 2%;
+				left: 40%;
+				right: 40%;
+				text-align: center;
+				margin-left: auto;
+				margin-right: auto;
+				color: darkgray;
+				z-index: 99;
+			}
+
+			input[type=color] {
+				background-color: white;
+				border: black solid 1px;
+			}
+
+			input {
+				width: 100px;
+			}
+
+			.modal {
+				position: absolute;
+
+				font-size: 1.2em;
+				display: table;
+				z-index: 9;
+				width: 100%;
+				height: 100%;
+				background-color: transparent;
+			}
+
+			.modal-box {
+				display: table-cell;
+				vertical-align: middle;
+
+			}
+
+			/* Modal Content/Box */
+			.modal-content {
+				font-family: 'VT323', monospace;
+				background-color: white;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+				padding: 20px;
+				width: 40%;
+			}
+
+			select {
+				width: 100px;
+				font-family: 'VT323', monospace;
+				font-size: 1em;
+				border: none;
+				background-color: transparent;
+			}
+
+			.SettingPanel {
+				display: table;
+				table-layout: fixed;
+				width: 50%;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: left;
+			}
+
+			.SettingOption {
+				display: table-cell;
+				padding-bottom: 5px;
+				overflow: visible;
+			}
+
+			#SetButton {
+				font-family: 'VT323', monospace;
+				font-size: 1.4em;
+				margin: 5px 0 5px 0;
+				display: inline-block;
+				background-color: transparent;
+				border: none;
+			}
+
+			#SetButton:hover {
+				font-size: 1.4em;
+				margin: 5px 0 5px 0;
+				display: inline-block;
+				background-color: black;
+				color: white;
+				border: none;
+			}
+
+			label {
+				display: inline-block;
+			}
+
+
+		</style>
+		<script>
+			//Script here
+		</script>
+		<title>
+			A Progress Bar
+		</title>
+	</head>
+	<body>
+		<div id="settingBox" class="modal">
+			<div class="modal-box">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<!-- TODO any better alternatives?-->
+
+					<div class="SettingPanel">
+						<div style="display: table-row; ">
+							<strong style="display: table-cell; ">Appearance</strong>
+						</div>
+						<div style="display:table-row; ">
+							<div class="SettingOption">Width:</div>
+							<div class="SettingOption">
+								<label><input type="number" name="bar-border-color" id="width"> %</label>
+							</div>
+						</div>
+						<div style="display:table-row; ">
+							<div class="SettingOption">Height:</div>
+							<div class="SettingOption">
+								<label><input type="number" name="bar-border-color" id="height"> px</label>
+							</div>
+						</div>
+						<div style="display: table-row; ">
+							<div class="SettingOption">Background color:</div>
+							<div class="SettingOption">
+								<label><input type="color" name="bk-color" id="bk-color"></label>
+							</div>
+						</div>
+						<div style="display: table-row; ">
+							<div class="SettingOption">Bar background color:</div>
+							<div class="SettingOption">
+								<label><input type="color" name="bar-bg-color" id="bar-bg-color"></label>
+							</div>
+						</div>
+						<div style="display: table-row; ">
+							<div class="SettingOption">Bar foreground color:</div>
+							<div class="SettingOption">
+								<label><input type="color" name="bar=fg-color" id="bar-fg-color" value="#FFFFFF"></label>
+							</div>
+						</div>
+						<div style="display: table-row; ">
+							<div class="SettingOption">Border:</div>
+							<div class="SettingOption">
+								<select id="borderSelect">
+									<option selected value="0">solid</option>
+									<option value="1">dotted</option>
+									<option value="2">dashed</option>
+									<option value="3">groove</option>
+									<option value="4">ridge</option>
+									<option value="4">outset</option>
+									<option value="4">inset</option>
+									<option value="4">none</option>
+								</select>
+							</div>
+						</div>
+						<div style="display: table-row; " id="borderColor">
+							<div class="SettingOption">Border color:</div>
+							<div class="SettingOption">
+								<label><input type="color" name="bar-border-color" id="bar-border-color"></label>
+							</div>
+						</div>
+						<div style="display: table-row; ">
+							<strong style="display: table-cell; ">Progress</strong>
+						</div>
+						<div style="display: table-row; ">
+							<div class="SettingOption">Style:</div>
+							<div class="SettingOption">
+								<select id="styleSelect">
+									<option selected value="0">Percentage</option>
+									<option value="1">Numeric</option>
+								</select>
+							</div>
+						</div>
+						<div style="display: none; " id="maxValue">
+							<div class="SettingOption">Maximum Value:</div>
+							<div class="SettingOption">
+								<label><input type="number" name="bar-border-color" id="max-value"></label>
+							</div>
+						</div>
+						<div style="display: none; " id="sep">
+							<div class="SettingOption">Separator:</div>
+							<div class="SettingOption">
+								<label><input type="text" name="bar-border-color" id="separator"></label>
+							</div>
+						</div>
+						<div style="display:table-row; ">
+							<div class="SettingOption">Progress speed:</div>
+							<div class="SettingOption">
+								<label><input type="number" name="bar-border-color" id="speed"> per sceond</label>
+							</div>
+						</div>
+					</div>
+					<div class="individualOption">
+					</div>
+					<button id="SetButton">Load</button>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			(c) 2017 Yip Chung Nin<br>
+			<a href="https://github.com/tonY1883/progressbar">View source code on GitHub</a>
+		</footer>
+	</body>
+	<script>
+		var bar;
+
+		window.onload = function () {
+
+			document.getElementById("borderSelect").onchange = function () {
+				if (document.getElementById("borderSelect").options[document.getElementById("borderSelect").selectedIndex].text == "none") {
+					document.getElementById("borderColor").style.display = "none";
+				} else {
+					document.getElementById("borderColor").style.display = "table-row";
+				}
+			};
+
+			document.getElementById("styleSelect").onchange = function () {
+				if (parseInt(document.getElementById("styleSelect").value) == 1) {
+					document.getElementById("maxValue").style.display = "table-row";
+					document.getElementById("sep").style.display = "table-row";
+				} else {
+					document.getElementById("maxValue").style.display = "none";
+					document.getElementById("sep").style.display = "none";
+				}
+			};
+
+		}
+
+
+	</script>
+</html>
