@@ -8,6 +8,7 @@
 		<style>
 			html {
 				overflow: hidden;
+				font-family: 'VT323', monospace;
 			}
 
 			body {
@@ -35,6 +36,7 @@
 
 			input {
 				width: 100px;
+				font-family: 'VT323', monospace;
 			}
 
 			.modal {
@@ -61,8 +63,12 @@
 				margin-left: auto;
 				margin-right: auto;
 				text-align: center;
-				padding: 20px;
 				width: 40%;
+			}
+
+			#barContainer {
+				margin-left: auto;
+				margin-right: auto;
 			}
 
 			select {
@@ -73,10 +79,13 @@
 				background-color: transparent;
 			}
 
+			#settings {
+				padding: 5%;
+			}
+
 			.SettingPanel {
 				display: table;
 				table-layout: fixed;
-				width: 50%;
 				margin-left: auto;
 				margin-right: auto;
 				text-align: left;
@@ -120,101 +129,103 @@
 		</title>
 	</head>
 	<body>
-		<div id="settingBox" class="modal">
+		<div class="modal">
 			<div class="modal-box">
 				<!-- Modal content -->
+				<div id="barContainer"></div>
 				<div class="modal-content">
-					<!-- TODO any better alternatives?-->
+					<div id="settings">
+						<!-- TODO any better alternatives?-->
+						<div id="settingBox" class="SettingPanel">
+							<div style="display: table-row; ">
+								<strong style="display: table-cell; ">Appearance</strong>
+							</div>
+							<div style="display: table-row; ">
+								<div class="SettingOption">Background color:</div>
+								<div class="SettingOption">
+									<label><input type="color" name="bk-color" id="bk-color"></label>
+								</div>
+							</div>
+							<div style="display:table-row; ">
+								<div class="SettingOption">Bar width:</div>
+								<div class="SettingOption">
+									<label><input type="number" name="bar-border-color" id="width" min="0" max="100"> %</label>
+								</div>
+							</div>
+							<div style="display:table-row; ">
+								<div class="SettingOption">Bar height:</div>
+								<div class="SettingOption">
+									<label><input type="number" name="bar-border-color" min="0" id="height"> px</label>
+								</div>
+							</div>
 
-					<div class="SettingPanel">
-						<div style="display: table-row; ">
-							<strong style="display: table-cell; ">Appearance</strong>
-						</div>
-						<div style="display:table-row; ">
-							<div class="SettingOption">Width:</div>
-							<div class="SettingOption">
-								<label><input type="number" name="bar-border-color" id="width"> %</label>
+							<div style="display: table-row; ">
+								<div class="SettingOption">Bar background color:</div>
+								<div class="SettingOption">
+									<label><input type="color" name="bar-bg-color" id="bar-bg-color"></label>
+								</div>
+							</div>
+							<div style="display: table-row; ">
+								<div class="SettingOption">Bar foreground color:</div>
+								<div class="SettingOption">
+									<label><input type="color" name="bar=fg-color" id="bar-fg-color" value="#FFFFFF"></label>
+								</div>
+							</div>
+							<div style="display: table-row; ">
+								<div class="SettingOption">Border:</div>
+								<div class="SettingOption">
+									<select id="borderSelect">
+										<option selected value="0">solid</option>
+										<option value="1">dotted</option>
+										<option value="2">dashed</option>
+										<option value="3">groove</option>
+										<option value="4">ridge</option>
+										<option value="4">outset</option>
+										<option value="4">inset</option>
+										<option value="4">none</option>
+									</select>
+								</div>
+							</div>
+							<div style="display: table-row; " id="borderColor">
+								<div class="SettingOption">Border color:</div>
+								<div class="SettingOption">
+									<label><input type="color" name="bar-border-color" id="bar-border-color"
+											value="#FFFFFF"></label>
+								</div>
+							</div>
+							<div style="display: table-row; ">
+								<strong style="display: table-cell; ">Progress</strong>
+							</div>
+							<div style="display: table-row; ">
+								<div class="SettingOption">Style:</div>
+								<div class="SettingOption">
+									<select id="styleSelect">
+										<option selected value="0">Percentage</option>
+										<option value="1">Numeric</option>
+									</select>
+								</div>
+							</div>
+							<div style="display: none; " id="maxValue">
+								<div class="SettingOption">Maximum Value:</div>
+								<div class="SettingOption">
+									<label><input type="number" name="bar-border-color" id="max-value" min="0"></label>
+								</div>
+							</div>
+							<div style="display: none; " id="sep">
+								<div class="SettingOption">Separator:</div>
+								<div class="SettingOption">
+									<label><input type="text" name="bar-border-color" id="separator"></label>
+								</div>
+							</div>
+							<div style="display:table-row; ">
+								<div class="SettingOption">Progress time:</div>
+								<div class="SettingOption">
+									<label><input type="number" name="bar-border-color" id="speed"> second</label>
+								</div>
 							</div>
 						</div>
-						<div style="display:table-row; ">
-							<div class="SettingOption">Height:</div>
-							<div class="SettingOption">
-								<label><input type="number" name="bar-border-color" id="height"> px</label>
-							</div>
-						</div>
-						<div style="display: table-row; ">
-							<div class="SettingOption">Background color:</div>
-							<div class="SettingOption">
-								<label><input type="color" name="bk-color" id="bk-color"></label>
-							</div>
-						</div>
-						<div style="display: table-row; ">
-							<div class="SettingOption">Bar background color:</div>
-							<div class="SettingOption">
-								<label><input type="color" name="bar-bg-color" id="bar-bg-color"></label>
-							</div>
-						</div>
-						<div style="display: table-row; ">
-							<div class="SettingOption">Bar foreground color:</div>
-							<div class="SettingOption">
-								<label><input type="color" name="bar=fg-color" id="bar-fg-color" value="#FFFFFF"></label>
-							</div>
-						</div>
-						<div style="display: table-row; ">
-							<div class="SettingOption">Border:</div>
-							<div class="SettingOption">
-								<select id="borderSelect">
-									<option selected value="0">solid</option>
-									<option value="1">dotted</option>
-									<option value="2">dashed</option>
-									<option value="3">groove</option>
-									<option value="4">ridge</option>
-									<option value="4">outset</option>
-									<option value="4">inset</option>
-									<option value="4">none</option>
-								</select>
-							</div>
-						</div>
-						<div style="display: table-row; " id="borderColor">
-							<div class="SettingOption">Border color:</div>
-							<div class="SettingOption">
-								<label><input type="color" name="bar-border-color" id="bar-border-color"></label>
-							</div>
-						</div>
-						<div style="display: table-row; ">
-							<strong style="display: table-cell; ">Progress</strong>
-						</div>
-						<div style="display: table-row; ">
-							<div class="SettingOption">Style:</div>
-							<div class="SettingOption">
-								<select id="styleSelect">
-									<option selected value="0">Percentage</option>
-									<option value="1">Numeric</option>
-								</select>
-							</div>
-						</div>
-						<div style="display: none; " id="maxValue">
-							<div class="SettingOption">Maximum Value:</div>
-							<div class="SettingOption">
-								<label><input type="number" name="bar-border-color" id="max-value"></label>
-							</div>
-						</div>
-						<div style="display: none; " id="sep">
-							<div class="SettingOption">Separator:</div>
-							<div class="SettingOption">
-								<label><input type="text" name="bar-border-color" id="separator"></label>
-							</div>
-						</div>
-						<div style="display:table-row; ">
-							<div class="SettingOption">Progress speed:</div>
-							<div class="SettingOption">
-								<label><input type="number" name="bar-border-color" id="speed"> per sceond</label>
-							</div>
-						</div>
+						<button id="SetButton">Load</button>
 					</div>
-					<div class="individualOption">
-					</div>
-					<button id="SetButton">Load</button>
 				</div>
 			</div>
 		</div>
@@ -226,6 +237,59 @@
 	</body>
 	<script>
 		var bar;
+		var filler;
+		var progressText;
+
+		var time;
+		var max_progress;
+		var progress = 0;
+
+		function generateBar() {
+			document.body.style.backgroundColor = document.getElementById("bk-color").value;
+			bar = document.createElement("div");
+			bar.style.height = (document.getElementById("height").value + "px");
+			bar.style.width = ("100%");
+			bar.style.border = (document.getElementById("borderSelect").options[document.getElementById("borderSelect").selectedIndex].text);
+			bar.style.borderColor = document.getElementById("bar-border-color").value;
+			bar.style.backgroundColor = document.getElementById("bar-bg-color").value;
+			filler = document.createElement("div");
+			filler.style.backgroundColor = document.getElementById("bar-fg-color").value;
+			filler.style.height = (document.getElementById("height").value + "px");
+			filler.style.width = "0px";
+			bar.appendChild(filler);
+			progressText = document.createElement("p");
+			if (parseInt(document.getElementById("styleSelect").value) == 0) {
+				max_progress = 100;
+				progressText.innerHTML = (progress + "%");
+			} else {
+				max_progress = parseInt(document.getElementById("max-value").value);
+				progressText.innerHTML = progress.toString() + document.getElementById("separator").value + max_progress.toString();
+			}
+			progressText.style.color = document.getElementById("bar-fg-color").value;
+			document.getElementById("barContainer").appendChild(bar);
+			document.getElementById("barContainer").appendChild(progressText);
+			document.getElementById("barContainer").style.textAlign = "center";
+
+			document.getElementById("barContainer").style.width = (document.getElementById("width").value + "%");
+
+
+		}
+
+		function runBar() {
+			var step = max_progress / parseInt(document.getElementById("speed").value);
+			var interval = 1000 / step;
+			setInterval(function () {
+				if (progress < max_progress) {
+					progress++;
+					if (parseInt(document.getElementById("styleSelect").value) == 0) {
+						progressText.innerHTML = (progress + "%");
+					} else {
+						progressText.innerHTML = progress.toString() + document.getElementById("separator").value + max_progress.toString();
+					}
+					filler.style.width = (progress / max_progress * 100) + "%";
+				}
+			}, interval);
+		}
 
 		window.onload = function () {
 
@@ -246,6 +310,12 @@
 					document.getElementById("sep").style.display = "none";
 				}
 			};
+
+			document.getElementById("SetButton").addEventListener('click', function () {
+				document.getElementById("settings").style.display = "none";
+				generateBar();
+				runBar();
+			}, false);
 
 		}
 
