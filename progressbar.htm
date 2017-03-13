@@ -10,6 +10,8 @@
 			html {
 				overflow: hidden;
 				font-family: 'VT323', monospace;
+				user-select: none;
+				cursor: default;
 			}
 
 			body {
@@ -31,6 +33,7 @@
 			}
 
 			input[type=color] {
+				cursor: auto;
 				background-color: white;
 				border: black solid 1px;
 			}
@@ -88,10 +91,12 @@
 			}
 
 			#code-text-area {
+				cursor: auto;
 				width: 100%;
 				background-color: white;
 				border: black solid 2px;
 				font-family: 'VT323', monospace;
+				user-select: all;
 			}
 
 			select {
