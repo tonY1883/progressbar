@@ -72,6 +72,28 @@
 				margin-right: auto;
 			}
 
+			#finishMenu {
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+				display: none;
+			}
+
+			#codeArea {
+				margin-left: auto;
+				margin-right: auto;
+				text-align: justify;
+				width: 40%;
+				display: none;
+			}
+
+			#code-text-area {
+				width: 100%;
+				background-color: white;
+				border: black solid 2px;
+				font-family: 'VT323', monospace;
+			}
+
 			select {
 				width: 100px;
 				font-family: 'VT323', monospace;
@@ -98,6 +120,25 @@
 				overflow: visible;
 			}
 
+			.adaptiveButton {
+				font-family: 'VT323', monospace;
+				font-size: 1.3em;
+				margin: 5px;
+				display: inline-block;
+				color: black;
+				background-color: white;
+				border: none;
+			}
+
+			.adaptiveButton:hover {
+				font-size: 1.3em;
+				margin: 5px;
+				display: inline-block;
+				background-color: black;
+				color: white;
+				border: none;
+			}
+
 			#SetButton {
 				font-family: 'VT323', monospace;
 				font-size: 1.4em;
@@ -122,9 +163,6 @@
 
 
 		</style>
-		<script>
-			//Script here
-		</script>
 		<title>
 			A Progress Bar
 		</title>
@@ -134,9 +172,13 @@
 			<div class="modal-box">
 				<!-- Modal content -->
 				<div id="barContainer"></div>
+				<div id="finishMenu">
+					<button id="refresh-btn" class="adaptiveButton">Load again</button>
+					<button id="get-code-button" class="adaptiveButton">Get HTML</button>
+				</div>
+				<div id="codeArea"><textarea id="code-text-area"></textarea></div>
 				<div class="modal-content">
 					<div id="settings">
-						<!-- TODO any better alternatives?-->
 						<div id="settingBox" class="SettingPanel">
 							<div style="display: table-row; ">
 								<strong style="display: table-cell; ">Appearance</strong>
@@ -237,89 +279,100 @@
 		</footer>
 	</body>
 	<script>
-		var bar;
-		var filler;
-		var progressText;
+        var bar;
+        var filler;
+        var progressText;
 
-		var time;
-		var max_progress;
-		var progress = 0;
+        var max_progress;
+        var progress = 0;
 
-		function generateBar() {
-			document.body.style.backgroundColor = document.getElementById("bk-color").value;
-			bar = document.createElement("div");
-			bar.style.height = (document.getElementById("height").value + "px");
-			bar.style.width = ("100%");
-			bar.style.border = (document.getElementById("borderSelect").options[document.getElementById("borderSelect").selectedIndex].text);
-			bar.style.borderColor = document.getElementById("bar-border-color").value;
-			bar.style.backgroundColor = document.getElementById("bar-bg-color").value;
-			filler = document.createElement("div");
-			filler.style.backgroundColor = document.getElementById("bar-fg-color").value;
-			filler.style.height = (document.getElementById("height").value + "px");
-			filler.style.width = "0px";
-			bar.appendChild(filler);
-			progressText = document.createElement("p");
-			if (parseInt(document.getElementById("styleSelect").value) == 0) {
-				max_progress = 100;
-				progressText.innerHTML = (progress + "%");
-			} else {
-				max_progress = parseInt(document.getElementById("max-value").value);
-				progressText.innerHTML = progress.toString() + document.getElementById("separator").value + max_progress.toString();
-			}
-			progressText.style.color = document.getElementById("bar-fg-color").value;
-			document.getElementById("barContainer").appendChild(bar);
-			document.getElementById("barContainer").appendChild(progressText);
-			document.getElementById("barContainer").style.textAlign = "center";
+        function generateBar() {
+            document.body.style.backgroundColor = document.getElementById("bk-color").value;
+            bar = document.createElement("div");
+            bar.style.height = (document.getElementById("height").value + "px");
+            bar.style.width = ("100%");
+            bar.style.border = (document.getElementById("borderSelect").options[document.getElementById("borderSelect").selectedIndex].text);
+            bar.style.borderColor = document.getElementById("bar-border-color").value;
+            bar.style.backgroundColor = document.getElementById("bar-bg-color").value;
+            filler = document.createElement("div");
+            filler.style.backgroundColor = document.getElementById("bar-fg-color").value;
+            filler.style.height = (document.getElementById("height").value + "px");
+            filler.style.width = "0px";
+            bar.appendChild(filler);
+            progressText = document.createElement("p");
+            if (parseInt(document.getElementById("styleSelect").value) == 0) {
+                max_progress = 100;
+                progressText.innerHTML = (progress + "%");
+            } else {
+                max_progress = parseInt(document.getElementById("max-value").value);
+                progressText.innerHTML = progress.toString() + document.getElementById("separator").value + max_progress.toString();
+            }
+            progressText.style.color = document.getElementById("bar-fg-color").value;
+            document.getElementById("barContainer").appendChild(bar);
+            document.getElementById("barContainer").appendChild(progressText);
+            document.getElementById("barContainer").style.textAlign = "center";
 
-			document.getElementById("barContainer").style.width = (document.getElementById("width").value + "%");
+            document.getElementById("barContainer").style.width = (document.getElementById("width").value + "%");
+        }
 
+        function runBar() {
+            var step = max_progress / parseInt(document.getElementById("speed").value);
+            var interval = 1000 / step;
+            var id = setInterval(function () {
+                if (progress < max_progress) {
+                    progress++;
+                    if (parseInt(document.getElementById("styleSelect").value) == 0) {
+                        progressText.innerHTML = (progress + "%");
+                    } else {
+                        progressText.innerHTML = progress.toString() + document.getElementById("separator").value + max_progress.toString();
+                    }
+                    filler.style.width = (progress / max_progress * 100) + "%";
+                } else {
+                    onBarFinish();
+                    clearInterval(id);
+                }
+            }, interval);
+        }
 
-		}
+        function onBarFinish() {
+            document.getElementById("finishMenu").style.display = "block";
+        }
 
-		function runBar() {
-			var step = max_progress / parseInt(document.getElementById("speed").value);
-			var interval = 1000 / step;
-			setInterval(function () {
-				if (progress < max_progress) {
-					progress++;
-					if (parseInt(document.getElementById("styleSelect").value) == 0) {
-						progressText.innerHTML = (progress + "%");
-					} else {
-						progressText.innerHTML = progress.toString() + document.getElementById("separator").value + max_progress.toString();
-					}
-					filler.style.width = (progress / max_progress * 100) + "%";
-				}
-			}, interval);
-		}
+        window.onload = function () {
 
-		window.onload = function () {
+            document.getElementById("borderSelect").onchange = function () {
+                if (document.getElementById("borderSelect").options[document.getElementById("borderSelect").selectedIndex].text == "none") {
+                    document.getElementById("borderColor").style.display = "none";
+                } else {
+                    document.getElementById("borderColor").style.display = "table-row";
+                }
+            };
 
-			document.getElementById("borderSelect").onchange = function () {
-				if (document.getElementById("borderSelect").options[document.getElementById("borderSelect").selectedIndex].text == "none") {
-					document.getElementById("borderColor").style.display = "none";
-				} else {
-					document.getElementById("borderColor").style.display = "table-row";
-				}
-			};
+            document.getElementById("styleSelect").onchange = function () {
+                if (parseInt(document.getElementById("styleSelect").value) == 1) {
+                    document.getElementById("maxValue").style.display = "table-row";
+                    document.getElementById("sep").style.display = "table-row";
+                } else {
+                    document.getElementById("maxValue").style.display = "none";
+                    document.getElementById("sep").style.display = "none";
+                }
+            };
 
-			document.getElementById("styleSelect").onchange = function () {
-				if (parseInt(document.getElementById("styleSelect").value) == 1) {
-					document.getElementById("maxValue").style.display = "table-row";
-					document.getElementById("sep").style.display = "table-row";
-				} else {
-					document.getElementById("maxValue").style.display = "none";
-					document.getElementById("sep").style.display = "none";
-				}
-			};
+            document.getElementById("refresh-btn").addEventListener('click', function () {
+                location.reload();
+            }, false);
 
-			document.getElementById("SetButton").addEventListener('click', function () {
-				document.getElementById("settings").style.display = "none";
-				generateBar();
-				runBar();
-			}, false);
+            document.getElementById("get-code-button").addEventListener('click', function () {
+                document.getElementById("code-text-area").innerHTML = document.getElementById("barContainer").innerHTML.toString();
+                document.getElementById("codeArea").style.display = "block";
+            }, false);
 
-		}
+            document.getElementById("SetButton").addEventListener('click', function () {
+                document.getElementById("settings").style.display = "none";
+                generateBar();
+                runBar();
+            }, false);
 
-
+        }
 	</script>
 </html>
