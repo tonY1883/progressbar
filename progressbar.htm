@@ -191,32 +191,32 @@
 							<div style="display: table-row; ">
 								<div class="SettingOption">Background color:</div>
 								<div class="SettingOption">
-									<label><input type="color" name="bk-color" id="bk-color"></label>
+									<label><input type="color" id="bk-color"></label>
 								</div>
 							</div>
 							<div style="display:table-row; ">
 								<div class="SettingOption">Bar width:</div>
 								<div class="SettingOption">
-									<label><input type="number" name="bar-border-color" id="width" min="0" max="100"> %</label>
+									<label><input type="number" id="width" min="0" max="100"> %</label>
 								</div>
 							</div>
 							<div style="display:table-row; ">
 								<div class="SettingOption">Bar height:</div>
 								<div class="SettingOption">
-									<label><input type="number" name="bar-border-color" min="0" id="height"> px</label>
+									<label><input type="number" min="0" id="height"> px</label>
 								</div>
 							</div>
 
 							<div style="display: table-row; ">
 								<div class="SettingOption">Bar background color:</div>
 								<div class="SettingOption">
-									<label><input type="color" name="bar-bg-color" id="bar-bg-color"></label>
+									<label><input type="color" id="bar-bg-color"></label>
 								</div>
 							</div>
 							<div style="display: table-row; ">
 								<div class="SettingOption">Bar foreground color:</div>
 								<div class="SettingOption">
-									<label><input type="color" name="bar=fg-color" id="bar-fg-color" value="#FFFFFF"></label>
+									<label><input type="color" id="bar-fg-color" value="#FFFFFF"></label>
 								</div>
 							</div>
 							<div style="display: table-row; ">
@@ -237,7 +237,7 @@
 							<div style="display: table-row; " id="borderColor">
 								<div class="SettingOption">Border color:</div>
 								<div class="SettingOption">
-									<label><input type="color" name="bar-border-color" id="bar-border-color"
+									<label><input type="color" id="bar-border-color"
 											value="#FFFFFF"></label>
 								</div>
 							</div>
@@ -256,19 +256,34 @@
 							<div style="display: none; " id="maxValue">
 								<div class="SettingOption">Maximum Value:</div>
 								<div class="SettingOption">
-									<label><input type="number" name="bar-border-color" id="max-value" min="0"></label>
+									<label><input type="number" id="max-value" min="0"></label>
 								</div>
 							</div>
 							<div style="display: none; " id="sep">
 								<div class="SettingOption">Separator:</div>
 								<div class="SettingOption">
-									<label><input type="text" name="bar-border-color" id="separator"></label>
+									<label><input type="text" id="separator"></label>
 								</div>
 							</div>
 							<div style="display:table-row; ">
 								<div class="SettingOption">Progress time:</div>
 								<div class="SettingOption">
-									<label><input type="number" name="bar-border-color" id="speed"> second</label>
+									<label><input type="number" id="speed"> second</label>
+								</div>
+							</div>
+							<div style="display: table-row; ">
+								<strong style="display: table-cell; ">Miscellaneous</strong>
+							</div>
+							<div style="display: table-row ">
+								<div class="SettingOption">Title when loading:</div>
+								<div class="SettingOption">
+									<label><input type="text" id="title"></label>
+								</div>
+							</div>
+							<div style="display: table-row ">
+								<div class="SettingOption">Title when finished:</div>
+								<div class="SettingOption">
+									<label><input type="text" id="fin-title"></label>
 								</div>
 							</div>
 						</div>
@@ -287,12 +302,16 @@
         var bar;
         var filler;
         var progressText;
+        var title;
 
         var max_progress;
         var progress = 0;
 
         function generateBar() {
             document.body.style.backgroundColor = document.getElementById("bk-color").value;
+			title = document.createElement("h2");
+			title.innerHTML = document.getElementById("title").value;
+			title.style.color = document.getElementById("bar-fg-color").value;
             bar = document.createElement("div");
             bar.style.height = (document.getElementById("height").value + "px");
             bar.style.width = ("100%");
@@ -313,6 +332,7 @@
                 progressText.innerHTML = progress.toString() + document.getElementById("separator").value + max_progress.toString();
             }
             progressText.style.color = document.getElementById("bar-fg-color").value;
+			document.getElementById("barContainer").appendChild(title);
             document.getElementById("barContainer").appendChild(bar);
             document.getElementById("barContainer").appendChild(progressText);
             document.getElementById("barContainer").style.textAlign = "center";
@@ -341,6 +361,7 @@
 
         function onBarFinish() {
             document.getElementById("finishMenu").style.display = "block";
+            title.innerHTML = title.innerHTML = document.getElementById("fin-title").value;
         }
 
         window.onload = function () {
