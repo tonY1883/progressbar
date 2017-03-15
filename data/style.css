@@ -1,0 +1,159 @@
+html {
+    overflow: hidden;
+    font-family: 'VT323', monospace;
+    user-select: none;
+    cursor: default;
+}
+
+body {
+    background-color: black;
+}
+
+footer {
+    position: fixed;
+    font-family: 'VT323', monospace;
+    font-size: 1.2em;
+    bottom: 2%;
+    left: 40%;
+    right: 40%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: darkgray;
+    z-index: 99;
+}
+
+input[type=color] {
+    cursor: auto;
+    background-color: white;
+    border: black solid 1px;
+}
+
+input {
+    width: 100px;
+    font-family: 'VT323', monospace;
+}
+
+.modal {
+    position: absolute;
+
+    font-size: 1.2em;
+    display: table;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+.modal-box {
+    display: table-cell;
+    vertical-align: middle;
+
+}
+
+/* Modal Content/Box */
+.modal-content {
+    font-family: 'VT323', monospace;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 40%;
+}
+
+#barContainer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#finishMenu {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: none;
+}
+
+#codeArea {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+    width: 40%;
+    display: none;
+}
+
+#code-text-area {
+    cursor: auto;
+    width: 100%;
+    background-color: white;
+    border: black solid 2px;
+    font-family: 'VT323', monospace;
+    user-select: all;
+}
+
+select {
+    width: 100px;
+    font-family: 'VT323', monospace;
+    font-size: 1em;
+    border: none;
+    background-color: transparent;
+}
+
+#settings {
+    padding: 5%;
+}
+
+.SettingPanel {
+    display: table;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.SettingOption {
+    display: table-cell;
+    padding-bottom: 5px;
+    overflow: visible;
+}
+
+.adaptiveButton {
+    font-family: 'VT323', monospace;
+    font-size: 1.3em;
+    margin: 5px;
+    display: inline-block;
+    color: black;
+    background-color: white;
+    border: none;
+}
+
+.adaptiveButton:hover {
+    font-size: 1.3em;
+    margin: 5px;
+    display: inline-block;
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+#SetButton {
+    font-family: 'VT323', monospace;
+    font-size: 1.4em;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+}
+
+#SetButton:hover {
+    font-size: 1.4em;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+label {
+    display: inline-block;
+}
+
