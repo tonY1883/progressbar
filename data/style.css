@@ -36,7 +36,8 @@ input {
 
 .modal {
     position: absolute;
-
+    left: 0;
+    top: 0;
     font-size: 1.2em;
     display: table;
     z-index: 9;
